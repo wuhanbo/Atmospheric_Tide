@@ -1,0 +1,18 @@
+---------------------------------------------------------
+starting run0
+found file num_run
+numold is set to 0
+numnew is set to 1
+
+Program aborted. Backtrace:
+#0  0x7FE7E76B7337
+#1  0x7FE7E76B8A32
+#2  0x7FE7E7789198
+#3  0x561128 in setspi_
+#4  0x51F5B2 in callcorrk_
+#5  0x49341F in physiq_
+#6  0x40BFA7 in calfis_
+#7  0x404DDA in MAIN__ at gcm.F:?
+Abort
+Run seems to have ended normally
+mv: cannot move ‘diagfi.nc’ to ‘output/diagfi1.nc’: No such file or directory

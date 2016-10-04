@@ -1,0 +1,17 @@
+#!/bin/csh
+#PBS -l nodes=1:ppn=8
+#PBS -q workq
+#PBS -r n
+#PBS -l walltime=45:00:00
+#PBS -N run0_test_1
+cd $PBS_O_WORKDIR
+cd earth_18.0h; ./run0 &
+cd earth_18.1h; ./run0 &
+cd earth_18.2h; ./run0 &
+cd earth_18.3h; ./run0 &
+cd earth_18.4h; ./run0 &
+cd earth_18.5h; ./run0 &
+cd earth_18.6h; ./run0 &
+cd earth_18.7h; ./run0 &
+wait
+

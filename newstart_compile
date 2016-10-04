@@ -1,0 +1,18 @@
+#!/bin/bash
+
+hh=h
+
+for i in `seq 18.0 0.1 28.0`
+do 
+	#rm -rf /mnt/scratch-lustre/hanbo/LMDZ_finite/earth_$i$hh/lrun1
+	#./newstart.e < newplanet_from_archive.def
+	#cp restart.nc start0.nc
+	#cp restartfi.nc startfi0.nc
+	#mkdir output
+	ls /mnt/scratch-lustre/hanbo/LMDZ_finite/earth_$i$hh/output
+	echo $i
+	#cd ..
+done
+
+
+

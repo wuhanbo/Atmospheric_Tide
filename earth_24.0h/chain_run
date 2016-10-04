@@ -1,0 +1,77 @@
+#!/bin/csh -f
+##############################################################################
+# Script to run successive monthly (a month spans 30 deg. in Ls)
+# simulations of the LMD Mars GCM.
+# This script uses the following files:
+# - "run0": script to compute a given month
+# - "num_run": single line file containing a value, which is the value of
+#   the 'initializing' month
+# - "run.def.ref": a "run.def" file, exept that variable "nday" is set to 9999
+# - all files usually neaded to run the GCM. Note that initialization
+#   datafiles "start.nc" and "startfi.nc" must be
+#   "start${num_run}.nc" and "startfi${num_run}.nc"
+##############################################################################
+# DON'T FORGET TO:
+# 1) Set the "number of simulation" to 1 in "run0"
+# 2) Copy "run.def" to "run.def.ref" and SET nday to 9999 in run.def.ref
+# 3) uncomment the various lines below (those which begin with "sed ...")
+# 4) If restarting in the middle of a year:
+#       -Below, Comment all the month already computed
+#       -Write  "N" in file "num_run" if starting from startN.nc !
+##############################################################################
+
+
+# Remove old "error" file (if any) and create a brand new (blank) one
+\rm -f  error; touch error
+
+#create a tmp directory to store the diag en stats files
+#set numinprogress=1
+#if ( -e in_progress ) then
+#  echo "in progress exists" >>& error
+#  while ( -e in_progress${numinprogress} ) 
+#     @ numinprogress = ${numinprogress} + 1
+#  end
+#  echo "numinprogress is set to" ${numinprogress}>>& error
+#
+#  \mv -f in_progress in_progress${numinprogress}
+#  \mkdir in_progress
+#else
+#  \mkdir in_progress
+#endif
+#\cp -f callphys.def in_progress/.
+
+# Same problem with run0, change run0 to ./run0 for sunnyvale server
+
+  sed s/9999/50/ run.def.ref2 >! run.def ; ./run0 >>& error     #1
+  sed s/9999/500/ run.def.ref >! run.def ; ./run0 >>& error     #1
+  sed s/9999/500/ run.def.ref >! run.def ; ./run0 >>& error     #1
+  sed s/9999/500/ run.def.ref >! run.def ; ./run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+ # sed s/9999/500/ run.def.ref >! run.def ; run0 >>& error     #1
+
+# These last lines allow to reconstruct the last num_run after a model crash
+# (because after crash, num_run was set to 9999 so that no further simulation
+# Could be performed
+   set number=`cat num_run`
+   if ( $number == 99999) then
+      set numold=`cat num_run.crash`
+      echo '-----' >>& error
+      echo 'Seasonal simulation aborted after starting from start'$numold >>& error
+      \mv -f num_run.crash num_run
+   endif
+                     
+
+## clean up
+#\cp -f start0.nc in_progress/.
+#\cp -f startfi0.nc in_progress/.
+#set numold=`cat num_run`
+#if ( ! $numold == 0 ) then
+#  \mv -f start${numold}.nc in_progress/.
+#  \mv -f startfi${numold}.nc in_progress/.
+#endif
+    
+

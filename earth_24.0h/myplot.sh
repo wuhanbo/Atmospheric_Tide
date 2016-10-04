@@ -1,0 +1,1 @@
+/cita/h/home-3/jleconte/GCM_SRC/UTIL/PYTHON/planetoplot_v2/pp.py -x -180,176 -y -90,90 -u meanarea -v ASR -v OLR diagfi.nc -S 
